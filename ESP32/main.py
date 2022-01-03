@@ -159,7 +159,7 @@ wait_exp = 0
 
 sta_if.active(True)
 sta_if.ifconfig(("192.168.2.51", "255.255.255.0", "192.168.2.1", "192.168.2.1"))
-sta_if.connect('Adlerhorst17', '46305400664725234747')
+sta_if.connect('WLAN_SSID', 'WLAN_PASSWD')
 
 while ((sta_if.isconnected() == False) and (wait_exp < 30) and (sta_if.status()!= 202)):
         time.sleep(1)
