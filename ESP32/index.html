@@ -1,0 +1,143 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <!--meta http-equiv="X-UA-Compatible" content="ie=edge" /-->
+    <title>
+        ESP32 Project!
+    </title>
+    <style>
+        .title {
+            font-size: 52px;
+            color: #c0c0c0;
+            background-color: #3c3c3c;
+            text-align: center;
+        }
+
+        html, body {
+          height: 100%;
+          width:100%;
+          margin:0px;
+          padding:0px;
+          background-color: #3c3c3c;
+        }
+        .table-header {
+            /* text-transform: uppercase; */
+            font-weight: bold;
+            color: #c0c0c0;
+            background-color: #3c3c3c;
+        }
+
+        .table-value {
+            font-size: 30px;
+            color: #999;
+            background-color: #3c3c3c;
+        }
+
+        .table-head2 {
+            color: #999;
+            background-color: #3c3c3c;
+        }
+
+        .text-primary {
+          color: #999;
+          background-color: #3c3c3c;
+        }
+
+        .container {
+          background-color: #3c3c3c;
+          color: #999;
+        }
+        .container_half {
+          background-color: #3c3c3c;
+          float: left;
+          width: 35%;
+        }
+        .container_last {
+          background-color: #3c3c3c;
+          float: right;
+          width: 65%;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript">
+    </script>
+    <!-- Custom styles for this template -->
+    <script type="text/javascript">
+	  $(document).ready(function () {
+		$.getJSON('get_latest_data', function (data) {
+			console.log(data);
+			var latest_date  = data.timeline + " Uhr";
+			document.getElementById('latest-meas').innerHTML = latest_date;
+			/* Actuall Temp to HTML Page */
+			var c_temp = data.temperature;
+			c_temp = parseFloat(Math.round(c_temp * 100) / 100).toFixed(2);
+			c_temp = c_temp + " °C";
+			/* Actuall Pres to HTML Page */
+			document.getElementById('current-temp').innerHTML = c_temp;
+			var c_pres = data.atmospheric_pressure;
+			c_pres = parseFloat(Math.round(c_pres * 100) / 100).toFixed(2);
+			c_pres = c_pres + " hPa";
+			document.getElementById('current-pres').innerHTML = c_pres;
+			var c_alt = data.altitude;
+			c_alt = parseFloat(Math.round(c_alt * 100) / 100).toFixed(2);
+			c_alt = c_alt + " m ü NN";
+			document.getElementById('current-alt').innerHTML = c_alt;
+			var c_hum = data.humidity;
+			c_hum = parseFloat(Math.round(c_hum * 100) / 100).toFixed(2);
+			c_hum = c_hum + " %";
+			document.getElementById('current-hum').innerHTML = c_hum;
+		  });
+	  });
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+      <p class="title">ESP32 Wetterstation mit BME280 codiert von Max Adler</p>
+      <p>Messort : Arbeitszimmer</p>
+      <a href="#" id="get-data">Get JSON data</a>
+    </div>
+    <div class="container">
+        <div class="container_half">
+                <h2 id="temperature-title" class="text-primary">Letzte Messung</h2>
+                <hr>
+                <table>
+                    <tr>
+                        <td class="table-header">Uhrzeit</td>
+                    </tr>
+                    <tr>
+                        <td class="table-value" id="latest-meas"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">Temperatur</td>
+                    </tr>
+                    <tr>
+                        <td class="table-value" id="current-temp"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">Atmohsph&auml;rendruck</td>
+                    </tr>
+                    <tr>
+                        <td class="table-value" id="current-pres"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">H&ouml;henlage</td>
+                    </tr>
+                    <tr>
+                        <td class="table-value" id="current-alt"></td>
+                    </tr>
+                    <tr>
+                        <td class="table-header">Luftfeuchtigkeit</td>
+                    </tr>
+                    <tr>
+                        <td class="table-value" id="current-hum"></td>
+                    </tr>
+                </table>
+              </div>
+          </div>
+</body>
+
+</html>
